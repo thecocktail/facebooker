@@ -9,7 +9,8 @@
 # This should only be necessary until the final version of the new profile is released.
 
 development:
-  api_key: 
+  api_key:
+  app_id: 
   secret_key: 
   canvas_page_name:
   callback_url:
@@ -23,7 +24,8 @@ development:
     server_alive_interval: 0
 
 test:
-  api_key: 
+  api_key:
+  app_id: 
   secret_key: 
   canvas_page_name: 
   callback_url:
@@ -36,7 +38,8 @@ test:
     server_alive_interval: 0
 
 production:
-  api_key: 
+  api_key:
+  app_id: 
   secret_key: 
   canvas_page_name: 
   callback_url: 
