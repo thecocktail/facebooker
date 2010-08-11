@@ -55,6 +55,7 @@ module Facebooker
     # manually every request to run multiple Facebook apps off one Rails app. 
     def apply_configuration(config)
       ENV['FACEBOOK_API_KEY']             = config['api_key']
+      ENV['FACEBOOK_APP_ID']             = config['app_id'].to_s
       ENV['FACEBOOK_SECRET_KEY']          = config['secret_key']
       ENV['FACEBOOKER_RELATIVE_URL_ROOT'] = config['canvas_page_name']
       ENV['FACEBOOKER_API']               = config['api']
@@ -169,7 +170,7 @@ module Facebooker
       @timeout
     end
 
-    [:api_key,:secret_key, :www_server_base_url,:login_url_base,:install_url_base,:permission_url_base,:connect_permission_url_base,:api_rest_path,:api_server_base,:api_server_base_url,:canvas_server_base, :video_server_base].each do |delegated_method|
+    [:api_key,:secret_key,:app_id, :oauth_install_url,:graph_server_base_url, :www_server_base_url,:login_url_base,:install_url_base,:permission_url_base,:connect_permission_url_base,:api_rest_path,:api_server_base,:api_server_base_url,:canvas_server_base, :video_server_base].each do |delegated_method|
       define_method(delegated_method){ return current_adapter.send(delegated_method)}
     end
 

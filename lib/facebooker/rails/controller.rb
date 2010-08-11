@@ -310,16 +310,17 @@ module Facebooker
         set_facebook_session || create_new_facebook_session_and_redirect!
       end
       
-      def ensure_application_is_installed_by_facebook_user
+      def ensure_application_is_installed_by_facebook_user(options = {})
         @installation_required = true
         returning ensure_authenticated_to_facebook && application_is_installed? do |authenticated_and_installed|
-           application_is_not_installed_by_facebook_user unless authenticated_and_installed
+           application_is_not_installed_by_facebook_user(options) unless authenticated_and_installed
         end
       end
       
-      def application_is_not_installed_by_facebook_user
+      def application_is_not_installed_by_facebook_user(options = {})
         next_url = after_facebook_login_url || default_after_facebook_login_url
-        top_redirect_to session[:facebook_session].install_url({:next => next_url})
+        options = options.merge({:redirect_uri => next_url})
+        top_redirect_to session[:facebook_session].install_url(options)
       end
       
       def set_facebook_request_format

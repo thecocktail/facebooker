@@ -19,6 +19,10 @@ module Facebooker
       "www.facebook.com"
     end
     
+    def graph_server_base_url
+      "graph.facebook.com"
+    end
+    
     def api_rest_path
       "/restserver.php"
     end
@@ -26,6 +30,11 @@ module Facebooker
     def api_key
       ENV['FACEBOOK_API_KEY'] || super      
     end
+    
+    def app_id
+      ENV['FACEBOOK_APP_ID'] || super      
+    end
+    
     
     def secret_key
       ENV['FACEBOOK_SECRET_KEY'] || super
@@ -52,6 +61,11 @@ module Facebooker
     def permission_url_base
       "http://#{www_server_base_url}/authorize.php?api_key=#{api_key}&v=1.0"
     end
+    
+    def oauth_install_url
+      "https://#{graph_server_base_url}/oauth/authorize?client_id=#{app_id}"
+    end
+    
     
   end
   

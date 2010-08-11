@@ -108,7 +108,7 @@ module Facebooker
     end
 
     def install_url(options={})
-      "#{Facebooker.install_url_base}#{install_url_optional_parameters(options)}"
+      "#{Facebooker.oauth_install_url}#{oauth_install_url_optional_parameters(options)}"
     end
 
     # The url to get user to approve extended permissions
@@ -151,6 +151,28 @@ module Facebooker
       opts << "&next_cancel=#{CGI.escape(options[:next_cancel])}" if options[:next_cancel]
       opts
     end
+    
+    def oauth_install_url_optional_parameters(options)
+      optional_parameters = []      
+      optional_parameters += add_redirect_parameters(options)
+      optional_parameters += add_scope_parameters(options)
+      
+      optional_parameters.join
+    end
+
+    def add_redirect_parameters(options)
+      opts = []
+      opts << "&redirect_uri=#{CGI.escape(options[:redirect_uri])}" if options[:redirect_uri]
+      opts
+    end
+    
+    def add_scope_parameters(options)
+      opts = []
+      opts << "&scope=#{CGI.escape(options[:scope])}" if options[:scope]
+      opts
+    end
+    
+    
 
     def login_url_optional_parameters(options)
       # It is important that unused options are omitted as stuff like &canvas=false will still display the canvas. 
